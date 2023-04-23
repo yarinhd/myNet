@@ -1,0 +1,85 @@
+version: '3'
+services:
+  # client:
+  #   build: ../frontEnd/client
+  #   expose:
+  #     - 80
+
+  item-compositor:
+    build: ../backend/microServices/item-compositor
+    expose:
+      - 3000
+      - 5000
+    depends_on:
+      - mongo
+      - nginx
+    env_file:
+      - ./rpc.env
+      - ./mongo.env
+
+  lesson-service:
+    build: ../backend/microServices/lesson-service
+    expose:
+      - 3000
+      - 5000
+    depends_on:
+      - mongo
+      - nginx
+    env_file:
+      - ./rpc.env
+      - ./mongo.env
+
+  media-service:
+    build: ../backend/microServices/media-service
+    expose:
+      - 3000
+      - 5000
+    depends_on:
+      - mongo
+      - nginx
+    env_file:
+      - ./rpc.env
+      - ./mongo.env
+
+  news-service:
+    build: ../backend/microServices/news-service
+    expose:
+      - 3000
+    depends_on:
+      - mongo
+      - nginx
+    env_file:
+      - ./rpc.env
+      - ./mongo.env
+
+  user-service:
+    build: ../backend/microServices/user-service
+    expose:
+      - 3000
+      - 5000
+    depends_on:
+      - mongo
+      - nginx
+    env_file:
+      - ./rpc.env
+      - ./mongo.env
+
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_DATABASE: myNet
+    volumes:
+      - 'mongo-volume:/data/db'
+      
+  nginx:
+    image: 'nginx:latest'
+    volumes:
+      - './nginx.conf:/etc/nginx/nginx.conf'
+    ports:
+      - '80:80'
+
+volumes:
+  mongo-volume: null
+
