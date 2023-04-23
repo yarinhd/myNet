@@ -1,5 +1,5 @@
-import { IUnit } from '../../common/interfaces/unit.interface';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
+import { IUnit } from 'common-atom/interfaces/unit.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
 import { UnitRepository } from './unit.repository';
 
 export class UnitManager {

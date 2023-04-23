@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { Permission } from '../../common/enums/Permission';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
-import { validateRequest } from '../../shared/utils/joi/joi.functions';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
+import { Permission } from 'common-atom/enums/Permission';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { validateRequest } from 'shared-atom/utils/joi/joi.functions';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
 import ChapterController from './chapter.controller';
 import { canCreateChapter, canUpdateChapter } from './chapter.validator';
 

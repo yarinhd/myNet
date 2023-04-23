@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { validateRequest, validateRequestByPermission } from '../../shared/utils/joi/joi.functions';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
+import { validateRequest, validateRequestByPermission } from 'shared-atom/utils/joi/joi.functions';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { config } from 'shared-atom/config';
+import { Permission } from 'common-atom/enums/Permission';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { formidableMiddleware } from 'shared-atom/utils/validators/formidable';
+import { IItem } from 'common-atom/interfaces/item.interface';
 import ItemController from './item.controller';
-import { canGetItems, canUpdateItem } from './item.validator';
-import { Permission } from '../../common/enums/Permission';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { multerMiddleware } from '../../shared/utils/validators/multer';
-import { IItem } from '../../common/interfaces/item.interface';
-import { config } from '../../shared/config';
+import { canGetItemByIdPublic, canGetItems, canUpdateItem } from './item.validator';
 
 const ItemRouter: Router = Router();
 
@@ -20,12 +20,20 @@ ItemRouter.get(
     wrapController(ItemController.getItems)
 );
 
+ItemRouter.get(
+    '/getItemById',
+    verifyToken,
+    validateUserAndPermission(),
+    validateRequest(canGetItemByIdPublic),
+    wrapController(ItemController.getItemById)
+);
+
 ItemRouter.put(
     '/updateItem/:itemId',
     verifyToken,
     validateUserAndPermission([Permission.EDITOR, Permission.DIRECTOR]),
+    formidableMiddleware<IItem>(config.formidable.propertyConfigs.item),
     validateRequestByPermission(canUpdateItem),
-    multerMiddleware<IItem>(config.multer.propertyConfigs.item),
     wrapController(ItemController.updateItem)
 );
 

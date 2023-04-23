@@ -1,12 +1,12 @@
-import { IUser } from '../../common/interfaces/user.interface';
+import { IUser } from 'common-atom/interfaces/user.interface';
 import {
     ITestByUser,
     ITestByUserQuery,
     ITestResult,
     ITestUserAnswers,
-} from '../../common/interfaces/testByUser.interface';
-import { ITest, IQuestion } from '../../common/interfaces/test.interface';
-import { TestByUserModel } from '../../shared/models/testByUser.model';
+} from 'common-atom/interfaces/testByUser.interface';
+import { ITest, IQuestion } from 'common-atom/interfaces/test.interface';
+import { TestByUserModel } from 'shared-atom/models/testByUser.model';
 
 export class TestByUserRepository {
     static getEmployeesTests(user: IUser, query: ITestByUserQuery): Promise<ITestResult[]> {

@@ -1,4 +1,4 @@
-import { INews, INewsQuery } from '../../common/interfaces/news.interface';
+import { INews, INewsQuery } from 'common-atom/interfaces/news.interface';
 import { NewsRepository } from './news.repository';
 
 export class NewsManager {

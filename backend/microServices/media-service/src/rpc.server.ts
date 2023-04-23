@@ -1,5 +1,5 @@
 import * as jayson from 'jayson/promise';
-import { RPCServerRequest } from '../shared/utils/rpc/rpc.functions';
+import { RPCServerRequest } from 'shared-atom/utils/rpc/rpc.functions';
 import { InfographicManager } from './infographic/infographic.manager';
 import { canGetInfographicById } from './infographic/infographic.validator';
 import { MediaManager } from './media/media.manager';

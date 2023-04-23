@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { UsersRPCService } from 'shared-atom/utils/rpc/services/user.RPCservice';
+import { IAllContent, IContentQuery } from 'common-atom/interfaces/content.interface';
 import { routeToRPCGetter } from './content.helpers';
-import { IAllContent, IContentQuery } from '../../common/interfaces/content.interface';
 import { ItemManager } from '../item/item.manager';
-import { UsersRPCService } from '../../shared/utils/rpc/services/user.RPCservice';
 
 export class ContentManager {
     static async getContentById(query: IContentQuery): Promise<IAllContent> {

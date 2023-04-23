@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { validateRequest } from '../../shared/utils/joi/joi.functions';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
-import TestByUserController from './testByUser.controller';
+import { validateRequest } from 'shared-atom/utils/joi/joi.functions';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { Permission } from 'common-atom/enums/Permission';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
 import { canGetEmployeesTests, canCreateTestByUser } from './testByUser.validator';
-import { Permission } from '../../common/enums/Permission';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
+import TestByUserController from './testByUser.controller';
 
 const TestByUserRouter: Router = Router();
 

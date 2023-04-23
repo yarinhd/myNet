@@ -1,4 +1,4 @@
-import { UserError } from '../../shared/utils/errors/applicationError';
+import { UserError } from 'shared-atom/utils/errors/applicationError';
 
 export class EditorPermissionError extends UserError {
     constructor() {

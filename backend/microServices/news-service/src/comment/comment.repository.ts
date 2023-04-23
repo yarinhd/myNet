@@ -1,5 +1,5 @@
-import { IComment } from '../../common/interfaces/comment.interface';
-import { CommentModel } from '../../shared/models/comment.model';
+import { IComment } from 'common-atom/interfaces/comment.interface';
+import { CommentModel } from 'shared-atom/models/comment.model';
 
 export class CommentRepository {
     // RPC & private routes

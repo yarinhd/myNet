@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { IPaginator, paginationKeys } from '../../common/interfaces/helpers/paginator.interface';
-import { IMyWiki, IMyWikiQuery } from '../../common/interfaces/myWiki.interface';
-import { MyWikiModel } from '../../shared/models/myWiki.model';
-import { paginationPipline } from '../../shared/utils/helpers/aggregation';
+import { IPaginator, paginationKeys } from 'common-atom/interfaces/helpers/paginator.interface';
+import { IMyWiki, IMyWikiQuery } from 'common-atom/interfaces/myWiki.interface';
+import { MyWikiModel } from 'shared-atom/models/myWiki.model';
+import { paginationPipline } from 'shared-atom/utils/helpers/aggregation';
 
 const TYPE_CHARACTER = 1;
 
@@ -15,7 +15,7 @@ export class MyWikiRepository {
                           ...(query.search.length === TYPE_CHARACTER
                               ? [
                                     { $match: { word: { $regex: `^${query.search}.*$`, $options: 'i' } } },
-                                    { $sort: { word: -1 } },
+                                    { $sort: { word: 1 } },
                                 ]
                               : [
                                     { $match: { $text: { $search: query.search } } },
@@ -24,7 +24,7 @@ export class MyWikiRepository {
                                     { $unset: 'score' },
                                 ]),
                       ]
-                    : [{ $sort: { word: -1 } }]),
+                    : [{ $sort: { word: 1 } }]),
                 ...paginationPipline(query.skip!, query.limit!),
             ],
             paginationKeys.some((key: keyof IMyWikiQuery) => query[key] !== undefined)

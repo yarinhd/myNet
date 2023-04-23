@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
-import { WatchMode } from '../../common/enums/WatchMode';
-import { IMission, IMissionQuery, IMissionGroup } from '../../common/interfaces/mission.interface';
-import { MissionModel } from '../../shared/models/mission.model';
+import { WatchMode } from 'common-atom/enums/WatchMode';
+import { IMission, IMissionQuery, IMissionGroup } from 'common-atom/interfaces/mission.interface';
+import { MissionModel } from 'shared-atom/models/mission.model';
 
 export class MissionRepository {
     static async getMissions(query: IMissionQuery): Promise<IMission[] | IMissionGroup> {
@@ -50,6 +50,7 @@ export class MissionRepository {
                                           },
                                       },
                                       { $project: { _id: 0, user: { $arrayElemAt: ['$user', 0] }, missions: 1 } },
+                                      { $sort: { '$user.firstName': -1 } },
                                   ],
                               },
                           },

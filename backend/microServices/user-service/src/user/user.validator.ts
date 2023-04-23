@@ -1,18 +1,22 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { joiCoordinate, joiEnum, joiMongoId, joiPersonalId } from '../../shared/utils/joi/joi.types';
-import { Section } from '../../common/enums/Section';
-import { WatchMode } from '../../common/enums/WatchMode';
-import { Permission } from '../../common/enums/Permission';
-import { ItemRPCService } from '../../shared/utils/rpc/services/item.RPCservice';
+import { joiCoordinate, joiEnum, joiMongoId, joiPersonalId } from 'shared-atom/utils/joi/joi.types';
+import { Section } from 'common-atom/enums/Section';
+import { WatchMode } from 'common-atom/enums/WatchMode';
+import { Permission } from 'common-atom/enums/Permission';
+import { ItemRPCService } from 'shared-atom/utils/rpc/services/item.RPCservice';
+import { LessonRPCService } from 'shared-atom/utils/rpc/services/lesson.RPCservice';
+import { MediaRPCService } from 'shared-atom/utils/rpc/services/media.RPCservice';
 import { UserManager } from './user.manager';
-import { LessonRPCService } from '../../shared/utils/rpc/services/lesson.RPCservice';
-import { MediaRPCService } from '../../shared/utils/rpc/services/media.RPCservice';
 
 const Joi = JoiBase.extend(<any>joiDate);
 //  RPC routes
-export const canGetUserById = Joi.object({
-    userId: joiMongoId().required(),
+export const canUpdateUser = Joi.object({
+    userId: joiPersonalId.required(),
+    dataToUpdate: Joi.object({
+        firstName: Joi.string(),
+        lastName: Joi.string()
+    }).min(1).required(),
 });
 
 export const canAddLastWatched = Joi.object({
@@ -20,12 +24,20 @@ export const canAddLastWatched = Joi.object({
 });
 
 //  public routes
+export const canGetUserById = Joi.object({
+    query: Joi.object({
+        userId: joiPersonalId.required(),
+    }).required(),
+    body: {},
+    params: {},
+});
+
 export const canGetUsers = Joi.object({
     query: Joi.object({
         search: Joi.string(),
         permission: joiEnum(Permission),
         skip: Joi.number().integer().min(0).required(),
-        limit: Joi.number().integer().min(1).required(),
+        limit: Joi.number().integer().min(1).max(25).required(),
     })
         .oxor('search', 'permission')
         .required(),
@@ -53,34 +65,33 @@ export const canGetAmountOfUsers = Joi.object({
 export const canCreateUser = Joi.object({
     query: {},
     body: Joi.object({
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
-        personalId: joiPersonalId.required(),
-        area: joiMongoId(ItemRPCService.getAreaById).required(),
-    }).required(),
+        area: joiMongoId(ItemRPCService.getAreaById),
+        coordinate: joiCoordinate,
+    })
+        .xor('area', 'coordinate')
+        .required(),
     params: {},
 });
 
-export const canUpdateUser = [
+export const canUpdateUserPublic = [
     {
         permissions: [Permission.ADMIN],
         schema: Joi.object({
             query: {},
             body: Joi.object({
-                firstName: Joi.string(),
-                lastName: Joi.string(),
-                personalId: joiPersonalId,
                 area: joiMongoId(ItemRPCService.getAreaById),
+                coordinate: joiCoordinate,
                 toggleFavorite: joiMongoId(ItemRPCService.getItemById),
                 toggleEmployee: joiMongoId(UserManager.getUserById),
                 permission: joiEnum(Permission),
             })
-                .without('permission', ['firstName', 'lastName', 'personalId', 'area', 'toggleFavorite'])
-                .without('toggleEmployee', ['firstName', 'lastName', 'personalId', 'area', 'toggleFavorite'])
+                .nand('area', 'coordinate')
+                .without('permission', ['area', 'coordinate', 'toggleFavorite'])
+                .without('toggleEmployee', ['area', 'coordinate', 'toggleFavorite'])
                 .min(1)
                 .required(),
             params: Joi.object({
-                userId: joiMongoId().required(),
+                userId: joiPersonalId.required(),
             }).required(),
         }),
     },
@@ -89,18 +100,17 @@ export const canUpdateUser = [
         schema: Joi.object({
             query: {},
             body: Joi.object({
-                firstName: Joi.string(),
-                lastName: Joi.string(),
-                personalId: joiPersonalId,
                 area: joiMongoId(ItemRPCService.getAreaById),
+                coordinate: joiCoordinate,
                 toggleFavorite: joiMongoId(ItemRPCService.getItemById),
                 permission: Joi.string().valid(Permission.VIEWER, Permission.EDITOR, Permission.ORGANIZER),
             })
-                .without('permission', ['firstName', 'lastName', 'personalId', 'area', 'toggleFavorite'])
+                .nand('area', 'coordinate')
+                .without('permission', ['area', 'coordinate', 'toggleFavorite'])
                 .min(1)
                 .required(),
             params: Joi.object({
-                userId: joiMongoId().required(),
+                userId: joiPersonalId.required(),
             }).required(),
         }),
     },
@@ -109,21 +119,20 @@ export const canUpdateUser = [
         schema: Joi.object({
             query: {},
             body: Joi.object({
-                firstName: Joi.string(),
-                lastName: Joi.string(),
-                personalId: joiPersonalId,
                 area: joiMongoId(ItemRPCService.getAreaById),
+                coordinate: joiCoordinate,
                 toggleFavorite: joiMongoId(ItemRPCService.getItemById),
                 toggleEmployee: joiMongoId(UserManager.getUserById),
                 permission: Joi.string().valid(Permission.VIEWER, Permission.COMMANDER),
             })
+                .nand('area', 'coordinate')
                 .nand('permission', 'toggleEmployee')
-                .without('permission', ['firstName', 'lastName', 'personalId', 'area', 'toggleFavorite'])
-                .without('toggleEmployee', ['firstName', 'lastName', 'personalId', 'area', 'toggleFavorite'])
+                .without('permission', ['area', 'coordinate', 'toggleFavorite'])
+                .without('toggleEmployee', ['area', 'coordinate', 'toggleFavorite'])
                 .min(1)
                 .required(),
             params: Joi.object({
-                userId: joiMongoId().required(),
+                userId: joiPersonalId.required(),
             }).required(),
         }),
     },
@@ -132,28 +141,19 @@ export const canUpdateUser = [
         schema: Joi.object({
             query: {},
             body: Joi.object({
-                firstName: Joi.string(),
-                lastName: Joi.string(),
-                personalId: joiPersonalId,
                 area: joiMongoId(ItemRPCService.getAreaById),
+                coordinate: joiCoordinate,
                 toggleFavorite: joiMongoId(ItemRPCService.getItemById),
             })
+                .nand('area', 'coordinate')
                 .min(1)
                 .required(),
             params: Joi.object({
-                userId: joiMongoId().required(),
+                userId: joiPersonalId.required(),
             }).required(),
         }),
     },
 ];
-
-export const canPatchRelevantArea = Joi.object({
-    query: {},
-    body: Joi.object({
-        coordinate: joiCoordinate.required(),
-    }).required(),
-    params: {},
-});
 
 export const canPatchChapter = Joi.object({
     query: {},

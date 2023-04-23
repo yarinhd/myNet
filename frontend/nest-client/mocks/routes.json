@@ -1,0 +1,11 @@
+{
+    "/api/*": "/$1",
+    "/user/me": "/profile",
+    "/test/lol": "/test",
+    "/item/getItems": "/items",
+    "/item/createItem\\?:body": "/items?:query",
+    "/user/search\\?:query": "/user?:query",
+    "/task/search\\?:query": "/task",
+    "/task/handletime\\?:query": "/taskTable",
+    "/task/location": "/location"
+}

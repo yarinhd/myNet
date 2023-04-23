@@ -1,5 +1,5 @@
-import { IChapter } from '../../common/interfaces/chapter.interface';
-import { ChapterModel } from '../../shared/models/chapter.model';
+import { IChapter } from 'common-atom/interfaces/chapter.interface';
+import { ChapterModel } from 'shared-atom/models/chapter.model';
 
 export class ChapterRepository {
     // RPC & private routes

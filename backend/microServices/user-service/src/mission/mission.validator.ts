@@ -1,10 +1,10 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { joiEnum, joiMongoId } from '../../shared/utils/joi/joi.types';
-import { Permission } from '../../common/enums/Permission';
-import { WatchMode } from '../../common/enums/WatchMode';
+import { joiEnum, joiMongoId } from 'shared-atom/utils/joi/joi.types';
+import { Permission } from 'common-atom/enums/Permission';
+import { WatchMode } from 'common-atom/enums/WatchMode';
+import { ContentType } from 'common-atom/enums/ContentType';
 import { UserManager } from '../user/user.manager';
-import { ContentType } from '../../common/enums/ContentType';
 
 const Joi = JoiBase.extend(<any>joiDate);
 

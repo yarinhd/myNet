@@ -1,5 +1,5 @@
-import { IUnit } from '../../common/interfaces/unit.interface';
-import { UnitModel } from '../../shared/models/unit.model';
+import { IUnit } from 'common-atom/interfaces/unit.interface';
+import { UnitModel } from 'shared-atom/models/unit.model';
 
 export class UnitRepository {
     // RPC & private routes

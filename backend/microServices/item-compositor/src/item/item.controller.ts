@@ -6,6 +6,10 @@ export default class ItemController {
         res.json(await ItemManager.getItems(req.query as any));
     }
 
+    static async getItemById(req: Request, res: Response): Promise<void> {
+        res.json(await ItemManager.getItemById(req.query.itemId as string));
+    }
+
     static async createItem(req: Request, res: Response): Promise<void> {
         res.json(await ItemManager.createItem(req.body));
     }

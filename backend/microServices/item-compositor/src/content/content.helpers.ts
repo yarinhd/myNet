@@ -1,8 +1,8 @@
-import { ContentType } from '../../common/enums/ContentType';
-import { IAllContent, IContentQuery } from '../../common/interfaces/content.interface';
-import { RPCFunctionError } from '../../shared/utils/errors/validationError';
-import { LessonRPCService } from '../../shared/utils/rpc/services/lesson.RPCservice';
-import { MediaRPCService } from '../../shared/utils/rpc/services/media.RPCservice';
+import { ContentType } from 'common-atom/enums/ContentType';
+import { IAllContent, IContentQuery } from 'common-atom/interfaces/content.interface';
+import { RPCFunctionError } from 'shared-atom/utils/errors/validationError';
+import { LessonRPCService } from 'shared-atom/utils/rpc/services/lesson.RPCservice';
+import { MediaRPCService } from 'shared-atom/utils/rpc/services/media.RPCservice';
 
 export const routeToRPCGetter = async (query: IContentQuery): Promise<IAllContent> => {
     switch (query.contentType) {

@@ -1,6 +1,6 @@
-import { IArticle, IArticleGroup, IArticleQuery } from '../../common/interfaces/article.interface';
+import { IArticle, IArticleGroup, IArticleQuery } from 'common-atom/interfaces/article.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
 import { ArticleRepository } from './article.repository';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
 
 export class ArticleManager {
     // RPC & private routes

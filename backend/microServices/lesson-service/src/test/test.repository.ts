@@ -1,5 +1,5 @@
-import { ITest } from '../../common/interfaces/test.interface';
-import { TestModel } from '../../shared/models/test.model';
+import { ITest } from 'common-atom/interfaces/test.interface';
+import { TestModel } from 'shared-atom/models/test.model';
 
 export class TestRepository {
     static getTestById(testId: string): Promise<ITest | null> {

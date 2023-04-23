@@ -1,0 +1,14 @@
+{
+    "short_name": "MyNet",
+    "icons": [
+        {
+            "src": "mynetIcon.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ],
+    "start_url": ".",
+    "display": "fullscreen",
+    "background_color": "#ffffff",
+    "orientation": "portrait"
+}

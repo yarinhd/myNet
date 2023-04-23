@@ -1,0 +1,15 @@
+{
+    "/api/*": "/$1",
+    "/user/me": "/profile",
+    "/test/lol": "/test",
+    "/item/getItems": "/items",
+    "/item/getContentById\\?:query": "/contents?:query",
+    "/item/createItem\\?:body": "/items?:query",
+    "/user/search\\?:query": "/user?:query",
+    "/task/search\\?:query": "/task",
+    "/task/handletime\\?:query": "/taskTable",
+    "/task/location": "/location",
+    "/user-service/missions/getMissions\\?:query": "/missions?:query",
+    "/news-service/myWiki/getMyWiki\\?:query": "/myWikis?:query"
+
+}

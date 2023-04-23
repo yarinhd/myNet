@@ -1,12 +1,12 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { ContentType } from '../../common/enums/ContentType';
-import { Grade } from '../../common/enums/Grade';
-import { Section } from '../../common/enums/Section';
-import { Category } from '../../common/enums/Category';
-import { Corp } from '../../common/enums/Corp';
-import { Permission } from '../../common/enums/Permission';
-import { joiEnum, joiBlob, joiMongoId, joiMongoIdArray, joiPriority } from '../../shared/utils/joi/joi.types';
+import { ContentType } from 'common-atom/enums/ContentType';
+import { Grade } from 'common-atom/enums/Grade';
+import { Section } from 'common-atom/enums/Section';
+import { Category } from 'common-atom/enums/Category';
+import { Corp } from 'common-atom/enums/Corp';
+import { Permission } from 'common-atom/enums/Permission';
+import { joiEnum, joiBlob, joiMongoId, joiMongoIdArray, joiPriority } from 'shared-atom/utils/joi/joi.types';
 import { AreaManager } from '../area/area.manager';
 import { UnitManager } from '../unit/unit.manager';
 import { ItemManager } from './item.manager';
@@ -33,7 +33,7 @@ export const canCreateItem = Joi.object({
         title: Joi.string().required(),
         description: Joi.string().required(),
         timeToRead: Joi.number().integer().required(),
-        thumbNail: joiBlob.required(),
+        thumbNail: Joi.string().required(),
         unit: joiMongoId(UnitManager.getUnitById).required(),
         contentId: joiMongoId().required(),
         similarItems: joiMongoIdArray(ItemManager.getItemById),
@@ -48,25 +48,31 @@ export const canCreateItem = Joi.object({
 }).required();
 
 // public routes
+export const canGetItemByIdPublic = Joi.object({
+    query: canGetItemById.required(),
+    body: {},
+    params: {},
+});
+
 export const canGetItems = Joi.object({
     query: Joi.object({
-        areaId: joiMongoId(),
-        section: joiEnum(Section),
-        category: joiEnum(Category),
+        areaId: joiMongoId().required(),
+        sections: Joi.array().items(joiEnum(Section)).min(1),
+        categories: Joi.array().items(joiEnum(Category)).min(1),
         contentType: joiEnum(ContentType),
         search: Joi.string(),
         skip: Joi.number().integer().min(0),
-        limit: Joi.number().integer().min(1),
+        limit: Joi.number().integer().min(1).max(25),
     })
-        .and('skip', 'limit')
-        .with('search', ['skip', 'limit'])
-        .with('category', ['skip', 'limit'])
-        .without('search', ['areaId', 'section', 'category', 'contentType'])
-        .when(Joi.object({ skip: Joi.exist(), limit: Joi.exist() }).unknown(), {
+        .when(Joi.object({ categories: Joi.exist() }).unknown(), {
             then: Joi.object({
-                category: Joi.optional(),
-                search: Joi.optional(),
-            }).xor('category', 'search'),
+                skip: Joi.exist(),
+                limit: Joi.exist(),
+            }).and('skip', 'limit'),
+            otherwise: Joi.object({
+                skip: Joi.forbidden(),
+                limit: Joi.forbidden(),
+            }),
         })
         .required(),
     body: {},

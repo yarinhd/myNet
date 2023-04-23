@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
-import { IArticle, IArticleGroup, IArticleQuery } from '../../common/interfaces/article.interface';
-import { ArticleModel } from '../../shared/models/article.model';
+import { IArticle, IArticleGroup, IArticleQuery } from 'common-atom/interfaces/article.interface';
+import { ArticleModel } from 'shared-atom/models/article.model';
 
 export class ArticleRepository {
     // RPC & private routes
@@ -42,6 +42,7 @@ export class ArticleRepository {
                 : [
                       { $group: { _id: '$category', articles: { $push: '$$ROOT' } } },
                       { $project: { _id: 0, category: { $arrayElemAt: ['$_id', 0] }, articles: 1 } },
+                      { $sort: { category: -1 } },
                   ]),
         ]).exec();
     }

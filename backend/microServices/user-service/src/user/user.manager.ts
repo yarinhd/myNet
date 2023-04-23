@@ -7,19 +7,33 @@ import {
     IUserQuery,
     IUserUpdater,
     otherUserKeys,
-} from '../../common/interfaces/user.interface';
+} from 'common-atom/interfaces/user.interface';
 import { UserRepository } from './user.repository';
-import { IItem } from '../../common/interfaces/item.interface';
-import { ItemRPCService } from '../../shared/utils/rpc/services/item.RPCservice';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
+import { IItem } from 'common-atom/interfaces/item.interface';
+import { ItemRPCService } from 'shared-atom/utils/rpc/services/item.RPCservice';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
 import { WrongUserError } from './user.errors';
-import { IArea, ICoordinate } from '../../common/interfaces/area.interface';
-import { NewsRPCService } from '../../shared/utils/rpc/services/news.RPCservice';
-import { Global } from '../../common/enums/helpers/Global';
-import { getContext } from '../../shared/utils/helpers/context';
-import { PatcherService } from '../../shared/utils/patcher/patcherService';
+import { IArea, ICoordinate } from 'common-atom/interfaces/area.interface';
+import { NewsRPCService } from 'shared-atom/utils/rpc/services/news.RPCservice';
+import { Global } from 'common-atom/enums/helpers/Global';
+import { getContext } from 'shared-atom/utils/helpers/context';
 
 export class UserManager {
+    // helpers
+    private static async areaCalculator(
+        userData: (Partial<IUser> & Partial<ICoordinate>) | (Partial<IUserUpdater> & Partial<ICoordinate>)
+    ): Promise<IUser | Partial<IUserUpdater>> {
+        let relevantAreaId;
+        if (userData.coordinate) {
+            relevantAreaId = (await ItemRPCService.getRelevantArea(userData.coordinate))._id;
+        }
+        const finalUser = { ...userData, ...(relevantAreaId && { area: relevantAreaId as string }) };
+        if (finalUser.coordinate) {
+            delete finalUser.coordinate;
+        }
+        return finalUser;
+    }
+
     // RPC & private routes
     static async getUserById(userId: string): Promise<IUser> {
         const user = await UserRepository.getUserById(userId);
@@ -50,14 +64,34 @@ export class UserManager {
         return UserRepository.getAmountOfUsers(query);
     }
 
-    static async createUser(user: IUser): Promise<IUser> {
-        const createdUser = await UserRepository.createUser(user);
-        const areaOfUser = await ItemRPCService.getAreaById(user.area as string);
-        await NewsRPCService.updateSocketRoom(areaOfUser.name);
-        return PatcherService.userPatcher(createdUser as IUser) as Promise<IUser>;
+    static async createUser(user: Partial<IUser> & Partial<ICoordinate>): Promise<IUser> {
+        const finalUser = {
+            ...((await UserManager.areaCalculator(user)) as IUser),
+            _id: getContext(Global.AZURE_USER).upn.split('@')[0],
+            firstName: getContext(Global.AZURE_USER).given_name,
+            lastName: getContext(Global.AZURE_USER).family_name,
+        };
+        const createdUser = await UserRepository.createUser(finalUser);
+        await NewsRPCService.updateSocketRoom((createdUser.area as IArea).name);
+        return createdUser;
     }
 
-    static async updateUser(userId: string, dataToUpdate: Partial<IUserUpdater>): Promise<IUser> {
+    static async updateUser(
+        userId: string,
+        dataToUpdate: Partial<IUserUpdater> & Partial<ICoordinate>
+    ): Promise<IUser> {
+        const finalDataToUpdate = await UserManager.areaCalculator(dataToUpdate);
+        const updatedUser = await UserRepository.updateUser(userId, finalDataToUpdate);
+        if (!updatedUser) {
+            throw new IdNotFoundError('userId');
+        }
+        return updatedUser;
+    }
+
+    static async updateUserPublic(
+        userId: string,
+        dataToUpdate: Partial<IUserUpdater> & Partial<ICoordinate>
+    ): Promise<IUser> {
         if (
             userId === getContext(Global.USER)._id &&
             otherUserKeys.some((key: keyof IUserUpdater) => !!dataToUpdate[key])
@@ -65,21 +99,15 @@ export class UserManager {
             throw new WrongUserError();
         }
         const oldUser = await UserManager.getUserById(userId);
-        const updatedUser = await UserRepository.updateUser(userId, dataToUpdate);
+        const finalDataToUpdate = await UserManager.areaCalculator(dataToUpdate);
+        const updatedUser = await UserRepository.updateUser(userId, finalDataToUpdate);
         if (!updatedUser) {
             throw new IdNotFoundError('userId');
         }
-        if (dataToUpdate.area) {
-            const areaOfUser = await ItemRPCService.getAreaById(dataToUpdate.area as string);
-            await NewsRPCService.updateSocketRoom(areaOfUser.name, (oldUser.area as IArea).name);
+        if (finalDataToUpdate.area) {
+            await NewsRPCService.updateSocketRoom((updatedUser.area as IArea).name, (oldUser.area as IArea).name);
         }
-        return PatcherService.userPatcher(updatedUser as IUser) as Promise<IUser>;
-    }
-
-    static async patchRelevantArea(body: ICoordinate): Promise<IUser> {
-        const area = await ItemRPCService.getRelevantArea(body.coordinate);
-        const updatedUser = await UserManager.updateUser(getContext(Global.USER)._id, { area: area._id });
-        return PatcherService.userPatcher(updatedUser as IUser) as Promise<IUser>;
+        return updatedUser;
     }
 
     static async patchChapter(chapterId: string, body: IUserChapterPatch): Promise<IUser> {
@@ -87,7 +115,7 @@ export class UserManager {
         if (!patchedUser) {
             throw new IdNotFoundError('userId');
         }
-        return PatcherService.userPatcher(patchedUser as IUser) as Promise<IUser>;
+        return patchedUser;
     }
 
     static async patchMedia(mediaId: string, body: IUserMediaPatch): Promise<IUser> {
@@ -95,6 +123,6 @@ export class UserManager {
         if (!patchedUser) {
             throw new IdNotFoundError('userId');
         }
-        return PatcherService.userPatcher(patchedUser as IUser) as Promise<IUser>;
+        return patchedUser;
     }
 }

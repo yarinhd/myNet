@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ContentType } from '../../common/enums/ContentType';
-import { IContentCreator } from '../../common/interfaces/content.interface';
-import { IInfographic } from '../../common/interfaces/infographic.interface';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
-import { ItemRPCService } from '../../shared/utils/rpc/services/item.RPCservice';
+import { ContentType } from 'common-atom/enums/ContentType';
+import { IContentCreator } from 'common-atom/interfaces/content.interface';
+import { IInfographic } from 'common-atom/interfaces/infographic.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
+import { ItemRPCService } from 'shared-atom/utils/rpc/services/item.RPCservice';
+import { handleItemBlobCreation } from 'shared-atom/utils/schema/helpers/itemHelpers';
 import { InfographicRepository } from './infographic.repository';
 
 export class InfographicManager {
@@ -21,6 +22,7 @@ export class InfographicManager {
         const { content, item, contentId } = infographic;
         const createdInfographic = await InfographicRepository.createInfographic(content, contentId);
         if (item) {
+            await handleItemBlobCreation(item);
             await ItemRPCService.createItem({
                 ...item,
                 contentId: createdInfographic._id!,

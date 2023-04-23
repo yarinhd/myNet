@@ -1,5 +1,5 @@
-import { IInfographic } from '../../common/interfaces/infographic.interface';
-import { InfographicModel } from '../../shared/models/infographic.model';
+import { IInfographic } from 'common-atom/interfaces/infographic.interface';
+import { InfographicModel } from 'shared-atom/models/infographic.model';
 
 export class InfographicRepository {
     // RPC & private routes

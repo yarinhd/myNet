@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { validateRequest } from '../../shared/utils/joi/joi.functions';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
-import ArticleController from './article.controller';
+import { validateRequest } from 'shared-atom/utils/joi/joi.functions';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { Permission } from 'common-atom/enums/Permission';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
+import { formidableMiddleware } from 'shared-atom/utils/validators/formidable';
+import { IArticle } from 'common-atom/interfaces/article.interface';
+import { config } from 'shared-atom/config';
 import { canCreateArticle, canUpdateArticle, canGetArticles } from './article.validator';
-import { Permission } from '../../common/enums/Permission';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
-import { multerMiddleware } from '../../shared/utils/validators/multer';
-import { IArticle } from '../../common/interfaces/article.interface';
-import { config } from '../../shared/config';
+import ArticleController from './article.controller';
 
 const ArticleRouter: Router = Router();
 
@@ -24,8 +24,8 @@ ArticleRouter.post(
     '/createArticle',
     verifyToken,
     validateUserAndPermission([Permission.EDITOR, Permission.DIRECTOR]),
+    formidableMiddleware<IArticle>(config.formidable.propertyConfigs.article),
     validateRequest(canCreateArticle),
-    multerMiddleware<IArticle>(config.multer.propertyConfigs.article),
     wrapController(ArticleController.createArticle)
 );
 
@@ -33,8 +33,8 @@ ArticleRouter.put(
     '/updateArticle/:articleId',
     verifyToken,
     validateUserAndPermission([Permission.EDITOR, Permission.DIRECTOR]),
+    formidableMiddleware<IArticle>(config.formidable.propertyConfigs.article),
     validateRequest(canUpdateArticle),
-    multerMiddleware<IArticle>(config.multer.propertyConfigs.article),
     wrapController(ArticleController.updateArticle)
 );
 

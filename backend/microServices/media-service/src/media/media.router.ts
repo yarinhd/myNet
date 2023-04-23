@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { validateRequest } from '../../shared/utils/joi/joi.functions';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
+import { validateRequest } from 'shared-atom/utils/joi/joi.functions';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { Permission } from 'common-atom/enums/Permission';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { IMedia } from 'common-atom/interfaces/media.interface';
+import { formidableMiddleware } from 'shared-atom/utils/validators/formidable';
+import { config } from 'shared-atom/config';
 import MediaController from './media.controller';
 import { canCreateMedia, canUpdateMedia } from './media.validator';
-import { Permission } from '../../common/enums/Permission';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { IMedia } from '../../common/interfaces/media.interface';
-import { multerMiddleware } from '../../shared/utils/validators/multer';
-import { config } from '../../shared/config';
 
 const MediaRouter: Router = Router();
 
@@ -16,8 +16,8 @@ MediaRouter.post(
     '/createMedia',
     verifyToken,
     validateUserAndPermission([Permission.EDITOR, Permission.DIRECTOR]),
+    formidableMiddleware<IMedia>(config.formidable.propertyConfigs.media, true),
     validateRequest(canCreateMedia),
-    multerMiddleware<IMedia>(config.multer.propertyConfigs.media),
     wrapController(MediaController.createMedia)
 );
 
@@ -25,8 +25,8 @@ MediaRouter.put(
     '/updateMedia/:mediaId',
     verifyToken,
     validateUserAndPermission([Permission.EDITOR, Permission.DIRECTOR]),
+    formidableMiddleware<IMedia>(config.formidable.propertyConfigs.media),
     validateRequest(canUpdateMedia),
-    multerMiddleware<IMedia>(config.multer.propertyConfigs.media),
     wrapController(MediaController.updateMedia)
 );
 

@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { validateRequest } from '../../shared/utils/joi/joi.functions';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
-import UnitController from './unit.controller';
+import { validateRequest } from 'shared-atom/utils/joi/joi.functions';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { Permission } from 'common-atom/enums/Permission';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
+import { IUnit } from 'common-atom/interfaces/unit.interface';
+import { formidableMiddleware } from 'shared-atom/utils/validators/formidable';
+import { config } from 'shared-atom/config';
 import { canCreateUnit, canUpdateUnit } from './unit.validator';
-import { Permission } from '../../common/enums/Permission';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
-import { IUnit } from '../../common/interfaces/unit.interface';
-import { multerMiddleware } from '../../shared/utils/validators/multer';
-import { config } from '../../shared/config';
+import UnitController from './unit.controller';
 
 const UnitRouter: Router = Router();
 
@@ -23,8 +23,8 @@ UnitRouter.post(
     '/createUnit',
     verifyToken,
     validateUserAndPermission([Permission.EDITOR, Permission.DIRECTOR]),
+    formidableMiddleware<IUnit>(config.formidable.propertyConfigs.unit),
     validateRequest(canCreateUnit),
-    multerMiddleware<IUnit>(config.multer.propertyConfigs.unit),
     wrapController(UnitController.createUnit)
 );
 
@@ -32,8 +32,8 @@ UnitRouter.put(
     '/updateUnit/:unitId',
     verifyToken,
     validateUserAndPermission([Permission.EDITOR, Permission.DIRECTOR]),
+    formidableMiddleware<IUnit>(config.formidable.propertyConfigs.unit),
     validateRequest(canUpdateUnit),
-    multerMiddleware<IUnit>(config.multer.propertyConfigs.unit),
     wrapController(UnitController.updateUnit)
 );
 

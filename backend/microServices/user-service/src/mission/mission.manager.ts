@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { IMission, IMissionCreator, IMissionGroup, IMissionQuery } from '../../common/interfaces/mission.interface';
-import { MissionRepository } from './mission.repository';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
-import { getContext, isDirector } from '../../shared/utils/helpers/context';
-import { Global } from '../../common/enums/helpers/Global';
-import { ItemRPCService } from '../../shared/utils/rpc/services/item.RPCservice';
-import { UsersRPCService } from '../../shared/utils/rpc/services/user.RPCservice';
+import { IMission, IMissionCreator, IMissionGroup, IMissionQuery } from 'common-atom/interfaces/mission.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
+import { getContext, isDirector } from 'shared-atom/utils/helpers/context';
+import { Global } from 'common-atom/enums/helpers/Global';
+import { ItemRPCService } from 'shared-atom/utils/rpc/services/item.RPCservice';
+import { UsersRPCService } from 'shared-atom/utils/rpc/services/user.RPCservice';
+import { Permission } from 'common-atom/enums/Permission';
 import { EditorPermissionError } from './mission.errors';
-import { Permission } from '../../shared/common/enums/Permission';
+import { MissionRepository } from './mission.repository';
 
 export class MissionManager {
     static async getMissions(query: IMissionQuery): Promise<IMission[] | IMissionGroup> {

@@ -1,4 +1,4 @@
-import { initApp } from '../shared';
+import { initApp } from 'shared-atom';
 import { config } from './config';
 import { ItemCron } from './item/item.cron';
 import { AppRouter } from './router';

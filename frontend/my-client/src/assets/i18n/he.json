@@ -1,0 +1,156 @@
+{
+    "AMAN_WIKI": {
+        "CREATE_NEW_DEFINITION": "צור מושג חדש",
+        "DELETE_ITEM": "מחיקת מושג",
+        "DELETE_CONFIRMATION": "האם אתה בטוח שאתה רוצה למחוק?",
+        "YES": "כן",
+        "DEFINITION": "מושג",
+        "EXPLANATION_AND_DETAIL": "הסבר ופירוט",
+        "SEARCH": "חפש מושג או הסבר....",
+        "NEW_WIKI": "מושג חדש",
+        "EDIT_WIKI": "ערוך מושג",
+        "EDIT": "ערוך",
+        "WIKI_NAME": "שם מושג",
+        "ENTER_WIKI_NAME": "הכנס שם מושג",
+        "ENTER_EXPLANATION": "הכנס פירוט",
+        "CREATE": "ליצור",
+        "SAVE": "שמור"
+    },
+    "WEEK": "שבוע",
+    "WEEK_DAYS": ["ראשון", "שני", "שלישי", "רביעי", "חמישי"],
+    "DASHBOARD_SECTIONS": {
+        "UPLOAD": "מה אתה רוצה להעלות היום?",
+        "STATISTICS": "סטטיסטיקות",
+        "WORK_PLAN": "תוכנית עבודה"
+    },
+    "UPLOAD_CONTENTS": {
+        "LESSON": "שיעור",
+        "INFOGRAPHIC": "אינפוגרפיקה",
+        "PAKAL": "פק\"ל דיגיטלי",
+        "GAME": "משחק",
+        "PODCAST": "פודקאסט",
+        "VIDEO": "סרטון",
+        "LOMDA": "לומדה",
+        "CONCEPT": "מושג"
+    },
+    "AREA_ITEMS": {
+        "LEBANON": "לבנון",
+        "SYRIA": "סוריה",
+        "GAZA": "עזה",
+        "AYUSH": "איוש",
+        "SHMONIM": "שמונים"
+    },
+    "HOME_PAGE": {
+        "INFINITY_SCROLL_LOADING": "טוען עוד ...",
+        "NAVIGATION_ITEMS_HOMEPAGE": {
+            "OPERATIONAL_ACTIVITY": "תעסוקה מבצעית",
+            "QUALIFIED_FOR_WAR": "כשירות למלחמה"
+        },
+        "FILTER_TAGS": {
+            "FIELD": "שטח",
+            "ENEMY": "אויב",
+            "MEANING_FOR_OUR_FORCE": "משמעות לכוחותינו"
+        }
+    },
+    "NAVIGATION_ITEMS": {
+        "UPLOAD": "העלאת תוצר",
+        "MY_WIKI": "MYWIKI",
+        "ALL_CONTENTS": "כל התכנים",
+        "STATISTICS": "סטטיסטיקות",
+        "USERS_DATA": "נתוני משתמשים",
+        "WORK_PLAN": "תוכנית עבודה",
+        "PERMISSIONS": "הרשאות"
+    },
+    "MENU_BAR": {
+        "HOME": "בית",
+        "SEARCH": "חיפוש",
+        "MY_WIKI": "MyWiki",
+        "BOOKS": "תורת אמ\"ן"
+    },
+    "MENU_PAGE": {
+        "PROFILE": "פרופיל",
+        "LOG-OUT": "התנתק",
+        "ON_US": "עלינו",
+        "ABOUT_US": "אודותינו :",
+        "EMAIL": "המייל :",
+        "MUDESH": "מחלקת מודש",
+        "SAPIR": "מערך ספיר",
+        "SHAHAR": "מנהלת שחר"
+    },
+    "AREA_NAMES": {
+        "LEBANON": "לבנון",
+        "SYRIA": "סוריה",
+        "GAZA": "עזה",
+        "AYUSH": "איוש",
+        "SHMONIM": "80"
+    },
+    "SEARCH_PAGE": {
+        "SEARCH": "חיפוש",
+        "SCENE": "זירה:",
+        "FILTER": "סינון"
+    },
+    "SECTION": {
+        "SECTION": "מצב יסוד:",
+        "OPERATIVE": "תעסוקה מבצעית",
+        "WAR": "כשירות למלחמה"
+    },
+    "CATEGORIES": {
+        "CATEGORY": "קטגוריה:",
+        "ONE": "שטח",
+        "TWO": "אויב",
+        "THREE": "משמעויות לכוחותינו"
+    },
+    "ITEM": {
+        "AREA": "זירה",
+        "GRADE": "דרג",
+        "CORP": "חיל",
+        "UNIT": "יחידה יוצרת",
+        "UPDATED_AT": "עדכון אחרון",
+        "MINUTES": "דק'",
+        "TO_READ": "קריאה",
+        "SHARE": "שתף",
+        "COPY_URL": "העתק קישור"
+    },
+    "GRADES": {
+        "SOLDIER": "לוחם",
+        "COMMANDOR": "מפקד",
+        "OFFICER": "קמ\"ן"
+    },
+    "CORPS": {
+        "FIGHTERS": "מתמרנות",
+        "INTELLIGENCE": "איסןף קרבי",
+        "RESERVE": "מילואים",
+        "RESERVE_COMMANDORS": "סגל במיל'",
+        "BORDERS": "גבולות"
+    },
+    "AUDIO_PLAYER": {
+        "PODCAST_NOT_AVAILABLE": "פודקאסט לא זמין"
+    },
+    "VIDEO_PLAYER": {
+        "VIDEO_NOT_AVAILABLE": "סרטון לא זמין"
+    },
+    "INFOGRAPHIC":{
+        "ZOOM_INFOGRAPHIC": "לחץ להגדלת האינפוגרפיקה"
+    },
+    "SEARCH_ITEMS": {
+        "DIDNT_FOUND_ITEMS": "לא נמצאו פריטים תחת זירת",
+        "CHANGE_AREA": "החלף זירה"
+    },
+    "LESSON": {
+        "LESSON": "שיעור",
+        "INTRODUCTION": "מבוא",
+        "CHAPTERS": "פרקים",
+        "OUR_GOAL": "המטרה שלנו היא...",
+        "PREVIOUS_KNOWLEDGE_NEED": "ידע קודם נדרש",
+        "DO_PREVIOUS_KNOWLEDGE": "אין לי את הידע הדרוש, מה לעשות?",
+        "NO_PREKNOWLEDGE": "אין צורך לידע קודם",
+        "AREA": "זירה",
+        "RANK": "דרג",
+        "SOLDIER": "חיל",
+        "UNIT_CREATED": "יחידה יוצרת",
+        "LAST_UPDATE": "עדכון אחרון",
+        "NEXT_CHAPTER": "לפרק הבא",
+        "LAST_CHAPTER": "לפרק הקודם",
+        "CHAPTER": "פרק"
+    }
+}

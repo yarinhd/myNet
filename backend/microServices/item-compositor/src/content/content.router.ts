@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { validateRequest } from '../../shared/utils/joi/joi.functions';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
+import { validateRequest } from 'shared-atom/utils/joi/joi.functions';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
 import ContentController from './content.controller';
 import { canGetContentById } from './content.validator';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
 
 const ContentRouter: Router = Router();
 ContentRouter.get(

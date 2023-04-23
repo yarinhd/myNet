@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { validateRequest } from '../../shared/utils/joi/joi.functions';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
-import MyWikiController from './myWiki.controller';
+import { validateRequest } from 'shared-atom/utils/joi/joi.functions';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { Permission } from 'common-atom/enums/Permission';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
 import { canCreateMyWiki, canUpdateMyWiki, canGetMyWiki, canDeleteMyWiki } from './myWiki.validator';
-import { Permission } from '../../common/enums/Permission';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
+import MyWikiController from './myWiki.controller';
 
 const MyWikiRouter: Router = Router();
 

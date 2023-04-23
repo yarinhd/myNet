@@ -1,9 +1,8 @@
-import { ContentType } from '../../common/enums/ContentType';
+import { ContentType } from 'common-atom/enums/ContentType';
+import { IChapter } from 'common-atom/interfaces/chapter.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
 import { ChapterDescriptionError } from './chapter.errors';
-import { IChapter } from '../../common/interfaces/chapter.interface';
 import { ChapterRepository } from './chapter.repository';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
-import { PatcherService } from '../../shared/utils/patcher/patcherService';
 
 export class ChapterManager {
     // RPC & private routes
@@ -12,7 +11,7 @@ export class ChapterManager {
         if (!chapter) {
             throw new IdNotFoundError('chapterId');
         }
-        return PatcherService.chapterPatcher(chapter as IChapter) as Promise<IChapter>;
+        return chapter;
     }
 
     // public routes
@@ -20,8 +19,7 @@ export class ChapterManager {
         if (contentType === ContentType.LESSON && !chapter.description) {
             throw new ChapterDescriptionError();
         }
-        const createdChapter = await ChapterRepository.createChapter(chapter);
-        return PatcherService.chapterPatcher(createdChapter as IChapter) as Promise<IChapter>;
+        return ChapterRepository.createChapter(chapter);
     }
 
     static async updateChapter(chapterId: string, chapter: Partial<IChapter>): Promise<IChapter> {
@@ -29,6 +27,6 @@ export class ChapterManager {
         if (!updatedChapter) {
             throw new IdNotFoundError('chapterId');
         }
-        return PatcherService.chapterPatcher(updatedChapter as IChapter) as Promise<IChapter>;
+        return updatedChapter;
     }
 }

@@ -3,7 +3,7 @@
         "target": "es2019",
         "module": "commonjs",
         "sourceMap": true,
-        "outDir": "dist",
+        "outDir": "dist/src",
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true,

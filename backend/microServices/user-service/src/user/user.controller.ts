@@ -2,6 +2,10 @@ import { Request, Response } from 'express';
 import { UserManager } from './user.manager';
 
 export default class UserController {
+    static async getUserById(req: Request, res: Response): Promise<void> {
+        res.json(await UserManager.getUserById(req.query.userId as string));
+    }
+
     static async getUsers(req: Request, res: Response): Promise<void> {
         res.json(await UserManager.getUsers(req.query as any));
     }
@@ -19,11 +23,7 @@ export default class UserController {
     }
 
     static async updateUser(req: Request, res: Response): Promise<void> {
-        res.json(await UserManager.updateUser(req.params.userId, req.body));
-    }
-
-    static async patchRelevantArea(req: Request, res: Response): Promise<void> {
-        res.json(await UserManager.patchRelevantArea(req.body));
+        res.json(await UserManager.updateUserPublic(req.params.userId, req.body));
     }
 
     static async patchChapter(req: Request, res: Response): Promise<void> {

@@ -1,7 +1,7 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { joiEnum, joiBlob, joiMongoId, joiPoligon, joiCoordinate } from '../../shared/utils/joi/joi.types';
-import { AreaNames } from '../../common/enums/AreaNames';
+import { joiEnum, joiBlob, joiMongoId, joiPoligon, joiCoordinate } from 'shared-atom/utils/joi/joi.types';
+import { AreaNames } from 'common-atom/enums/AreaNames';
 
 const Joi = JoiBase.extend(<any>joiDate);
 

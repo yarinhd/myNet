@@ -1,7 +1,7 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { joiEnum, joiMongoId, joiPdfURL } from '../../shared/utils/joi/joi.types';
-import { Category } from '../../common/enums/Category';
+import { joiBlob, joiEnum, joiMongoId } from 'shared-atom/utils/joi/joi.types';
+import { Category } from 'common-atom/enums/Category';
 
 const Joi = JoiBase.extend(<any>joiDate);
 
@@ -25,10 +25,10 @@ export const canCreateArticle = Joi.object({
             unit: Joi.string().required(),
             city: Joi.string().required(),
             description: Joi.string().required(),
-            image: Joi.string().required(),
+            image: joiBlob.required(),
         }),
-        thumbNail: Joi.string().required(),
-        pdfURL: joiPdfURL.required(),
+        thumbNail: joiBlob.required(),
+        pdf: joiBlob.required(),
     }).required(),
     params: {},
 });
@@ -45,10 +45,10 @@ export const canUpdateArticle = Joi.object({
             unit: Joi.string().required(),
             city: Joi.string().required(),
             description: Joi.string().required(),
-            image: Joi.string().required(),
+            image: joiBlob.required(),
         }),
-        thumbNail: Joi.string(),
-        pdfURL: joiPdfURL,
+        thumbNail: joiBlob,
+        pdf: joiBlob,
     })
         .min(1)
         .required(),

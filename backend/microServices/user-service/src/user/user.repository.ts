@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as mongoose from 'mongoose';
-import { paginationKeys } from '../../common/interfaces/helpers/paginator.interface';
-import { IItem } from '../../common/interfaces/item.interface';
+import { paginationKeys } from 'common-atom/interfaces/helpers/paginator.interface';
+import { IItem } from 'common-atom/interfaces/item.interface';
 import {
     ILastWatchedQuery,
     IUser,
@@ -10,9 +10,9 @@ import {
     IUserMediaPatch,
     IUserQuery,
     IUserUpdater,
-} from '../../common/interfaces/user.interface';
-import { UserModel } from '../../shared/models/user.model';
-import { paginationPipline } from '../../shared/utils/helpers/aggregation';
+} from 'common-atom/interfaces/user.interface';
+import { UserModel } from 'shared-atom/models/user.model';
+import { paginationPipline } from 'shared-atom/utils/helpers/aggregation';
 import { config } from '../config';
 
 export class UserRepository {

@@ -1,5 +1,5 @@
-import { INews, INewsQuery } from '../../common/interfaces/news.interface';
-import { NewsModel } from '../../shared/models/news.model';
+import { INews, INewsQuery } from 'common-atom/interfaces/news.interface';
+import { NewsModel } from 'shared-atom/models/news.model';
 
 export class NewsRepository {
     static getNews(query: INewsQuery): Promise<INews[]> {

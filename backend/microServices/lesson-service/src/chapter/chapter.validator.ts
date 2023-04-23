@@ -1,7 +1,7 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { ContentType } from '../../common/enums/ContentType';
-import { joiMongoId } from '../../shared/utils/joi/joi.types';
+import { ContentType } from 'common-atom/enums/ContentType';
+import { joiMongoId } from 'shared-atom/utils/joi/joi.types';
 
 const Joi = JoiBase.extend(<any>joiDate);
 

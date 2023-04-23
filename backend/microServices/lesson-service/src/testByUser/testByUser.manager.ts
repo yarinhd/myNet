@@ -4,12 +4,12 @@ import {
     ITestByUserQuery,
     ITestResult,
     ITestUserAnswers,
-} from '../../common/interfaces/testByUser.interface';
+} from 'common-atom/interfaces/testByUser.interface';
+import { InvalidAnswersTestByUser } from 'shared-atom/utils/errors/validationError';
+import { Global } from 'common-atom/enums/helpers/Global';
+import { getContext } from 'shared-atom/utils/helpers/context';
 import { TestByUserRepository } from './testByUser.repository';
-import { InvalidAnswersTestByUser } from '../../shared/utils/errors/validationError';
 import { TestManager } from '../test/test.manager';
-import { Global } from '../../common/enums/helpers/Global';
-import { getContext } from '../../shared/utils/helpers/context';
 
 export class TestByUserManager {
     static async getEmployeesTests(query: ITestByUserQuery): Promise<ITestResult[]> {

@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { validateRequest, validateRequestByPermission } from '../../shared/utils/joi/joi.functions';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
+import { validateRequest, validateRequestByPermission } from 'shared-atom/utils/joi/joi.functions';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { Permission } from 'common-atom/enums/Permission';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
 import MissionController from './mission.controller';
 import { canCreateMission, canGetMissions, canUpdateMission, canDeleteMission } from './mission.validator';
-import { Permission } from '../../common/enums/Permission';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
 
 const MissionRouter: Router = Router();
 

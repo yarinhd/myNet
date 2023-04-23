@@ -1,8 +1,8 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { joiMongoId } from '../../shared/utils/joi/joi.types';
+import { ItemRPCService } from 'shared-atom/utils/rpc/services/item.RPCservice';
+import { joiMongoId } from 'shared-atom/utils/joi/joi.types';
 import { TestManager } from '../test/test.manager';
-import { ItemRPCService } from '../../shared/utils/rpc/services/item.RPCservice';
 
 const Joi = JoiBase.extend(<any>joiDate);
 

@@ -1,5 +1,5 @@
 import * as jayson from 'jayson/promise';
-import { RPCServerRequest } from '../shared/utils/rpc/rpc.functions';
+import { RPCServerRequest } from 'shared-atom/utils/rpc/rpc.functions';
 import { AreaManager } from './area/area.manager';
 import { canGetAreaById, canGetRelevantArea } from './area/area.validator';
 import { ItemManager } from './item/item.manager';

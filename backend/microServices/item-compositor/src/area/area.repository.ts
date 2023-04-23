@@ -1,5 +1,5 @@
-import { IArea } from '../../common/interfaces/area.interface';
-import { AreaModel } from '../../shared/models/area.model';
+import { IArea } from 'common-atom/interfaces/area.interface';
+import { AreaModel } from 'shared-atom/models/area.model';
 
 export class AreaRepository {
     // RPC & private routes

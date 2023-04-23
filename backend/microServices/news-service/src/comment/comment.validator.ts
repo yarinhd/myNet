@@ -1,6 +1,6 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { joiMongoId } from '../../shared/utils/joi/joi.types';
+import { joiMongoId } from 'shared-atom/utils/joi/joi.types';
 import { ArticleManager } from '../article/article.manager';
 
 const Joi = JoiBase.extend(<any>joiDate);

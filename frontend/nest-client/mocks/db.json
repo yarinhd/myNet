@@ -1,0 +1,307 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "firstName": "Alon",
+            "lastName": "Zelinsky",
+            "createdAt": "2021-07-11T16:00:00Z",
+            "permission": "editor",
+            "area": "lebanon",
+            "favorites": [],
+            "lastWatched": [],
+            "employees": [],
+            "media": [],
+            "chapters": []
+        },
+        {
+            "id": "2",
+            "firstName": "John",
+            "lastName": "Doe",
+            "createdAt": "2021-01-13T16:00:00Z",
+            "permission": "viewer",
+            "area": "lebanon",
+            "favorites": [],
+            "lastWatched": [],
+            "employees": [],
+            "media": [],
+            "chapters": []
+        },
+        {
+            "id": "3",
+            "firstName": "Gavin",
+            "lastName": "Banks",
+            "createdAt": "2022-01-22T16:00:00Z",
+            "permission": "commander",
+            "area": "lebanon",
+            "favorites": [],
+            "lastWatched": [],
+            "employees": [],
+            "media": [],
+            "chapters": []
+        },
+        {
+            "id": "4",
+            "firstName": "Rose",
+            "lastName": "Massey",
+            "createdAt": "2021-09-29T16:00:00Z",
+            "permission": "organizer",
+            "area": "lebanon",
+            "favorites": [],
+            "lastWatched": [],
+            "employees": [],
+            "media": [],
+            "chapters": []
+        },
+        {
+            "id": "5",
+            "firstName": "Rachael",
+            "lastName": "Kirby",
+            "createdAt": "2020-10-10T16:00:00Z",
+            "permission": "director",
+            "area": "lebanon",
+            "favorites": [],
+            "lastWatched": [],
+            "employees": [],
+            "media": [],
+            "chapters": []
+        },
+        {
+            "id": "6",
+            "firstName": "Trzetrzelewska",
+            "lastName": "Dzieduszycki",
+            "createdAt": "2019-04-11T16:00:00Z",
+            "permission": "admin",
+            "area": "lebanon",
+            "favorites": [],
+            "lastWatched": [],
+            "employees": [],
+            "media": [],
+            "chapters": []
+        },
+        {
+            "id": "7",
+            "firstName": "Ted",
+            "lastName": "Kaczynski",
+            "createdAt": "2018-04-11T16:00:00Z",
+            "permission": "organizer",
+            "area": "lebanon",
+            "favorites": [],
+            "lastWatched": [],
+            "employees": [],
+            "media": [],
+            "chapters": []
+        }
+    ],
+
+    "missions": [
+        {
+            "_id": 1,
+            "notes": "finish it quick",
+            "startDate": "2022-12-11T16:00:00Z",
+            "complitionDate": "2023-01-11T16:00:00Z",
+            "director": "2",
+            "editor": "4",
+            "item": "1",
+            "weekNum": 1
+        },
+        {
+            "_id": 2,
+            "notes": "L do something",
+            "startDate": "2022-12-11T16:00:00Z",
+            "complitionDate": "2023-01-11T16:00:00Z",
+            "director": "2",
+            "editor": "4",
+            "item": "3",
+            "weekNum": 1
+        },
+        {
+            "_id": 3,
+            "notes": "add more details to the pakal",
+            "startDate": "2022-11-11T16:00:00Z",
+            "complitionDate": "2023-02-11T16:00:00Z",
+            "director": "6",
+            "editor": "2",
+            "item": "2",
+            "weekNum": 1
+        }
+    ],
+
+    "myWikis": [
+        {
+            "id": "1",
+            "word": "א\"ג",
+            "defenition": "אימון גופני"
+        },
+        {
+            "id": "2",
+            "word": "אפטר",
+            "defenition": "לילה של לינה בבית. בבוקר שאחרי האפטר יש להתייצב בבסיס"
+        },
+        {
+            "id": "3",
+            "word": "דיסטנס",
+            "defenition": "מרחק פיקודי בין החיילים לבין המפקדים שלהם."
+        },
+        {
+            "id": "4",
+            "word": "דיגום",
+            "defenition": "שמירה על הופעה חיצונית תקינה בהתאם לקוד הצבאי."
+        },
+        {
+            "id": "5",
+            "word": "ת\"ש",
+            "defenition": "תנאי שירות"
+        },
+        {
+            "id": "6",
+            "word": "שק\"ם",
+            "defenition": "שירות קנטינות ומזנונים"
+        },
+        {
+            "id": "7",
+            "word": "צהוב",
+            "defenition": "חייל שלוקח את חוקי צהל ואת החובה עליו שלב שלב קדימה"
+        },
+        {
+            "id": "8",
+            "word": "עד מתי?",
+            "defenition": "סלוגן שמראה תסכול ורצון לסיים את השירות כבר "
+        },
+        {
+            "id": "9",
+            "word": "פז\"ם",
+            "defenition": "פרק הזמן שחייב לעבור טרם קידומו של עובד לדרגה הבאה במסלול הקידום שלו או לתפקיד בכיר יותר."
+        },
+        {
+            "id": "10",
+            "word": "סטירבול",
+            "defenition": "סטירה עם -צנזור-"
+        }
+    ],
+
+    "units": [
+        {
+            "id": "1",
+            "name": "8199 + 1",
+            "image": "-Insert Blob ID-"
+        },
+        {
+            "id": "2",
+            "name": "אוכלי חתולים",
+            "image": "-Insert Blob ID-"
+        }
+    ],
+
+    "test": { "name": "xd" },
+
+    "items": [
+        {
+            "id": "1",
+            "updatedAt": "2019-04-11T16:00:00Z",
+            "title": "שיעור על איך להכין קפה שחור",
+            "description": "כל מה שצריך לדעת על הכנת קפה שחור",
+            "views": 42,
+            "priority": 9,
+            "isActive": true,
+            "sections": ["war"],
+            "categories": ["one"],
+            "corps": ["fighters", "borders"],
+            "grade": "soldier",
+            "contentType": "lesson",
+            "thumbNail": "-insert minio ID-",
+            "contentId": "1",
+            "areas": ["lebanon", "syria"],
+            "unit": "1",
+            "similarItems": []
+        },
+        {
+            "id": "2",
+            "updatedAt": "2021-08-11T16:00:00Z",
+            "title": "פקל דוגמא",
+            "description": "כל מה שצריך לדעת על הכנת קפה שחור",
+            "views": 153,
+            "priority": 32,
+            "isActive": true,
+            "sections": ["operative"],
+            "categories": ["two"],
+            "corps": ["fighters", "borders"],
+            "grade": "commander",
+            "contentType": "pakal",
+            "thumbNail": "-insert minio ID-",
+            "contentId": "1",
+            "areas": ["lebanon", "ayush"],
+            "unit": "2",
+            "similarItems": [1]
+        },
+        {
+            "id": "3",
+            "updatedAt": "2021-08-11T16:00:00Z",
+            "title": "תמונה של כלב מגניג שראיתי",
+            "description": ",תמונה :)",
+            "views": 21023,
+            "priority": 100,
+            "isActive": true,
+            "sections": ["operative", "war"],
+            "categories": ["two", "one", "four"],
+            "corps": ["fighters", "borders", "intelligence"],
+            "grade": "soldier",
+            "contentType": "infographic",
+            "thumbNail": "-insert minio ID-",
+            "contentId": "1",
+            "areas": ["lebanon", "ayush"],
+            "unit": "1",
+            "similarItems": [1]
+        }
+    ],
+
+    "leasons": [
+        {
+            "id": "1",
+            "goal": "coffee",
+            "experience": "coffee",
+            "pdf": "",
+            "chapters": ["1"],
+            "preKnowledge": []
+        }
+    ],
+
+    "pakals": [
+        {
+            "id": "1",
+            "pdf": "-insert pdf link-",
+            "chapters": ["21", "22"]
+        }
+    ],
+
+    "infographics": [
+        {
+            "id": "1",
+            "image": "-insert minio ID here-"
+        }
+    ],
+
+    "chapters": [
+        {
+            "id": "1",
+            "title": "פשוט תכין קפה אחי",
+            "page": 1
+        },
+        {
+            "id": "21",
+            "title": "איך נראה פקל",
+            "page": 1
+        },
+        {
+            "id": "22",
+            "title": "איך להעלים מס",
+            "page": 2
+        }
+    ],
+
+    "profile": {
+        "firstName": "Almog",
+        "lastName": "Hazan",
+        "fullName": "Almog Hazan",
+        "_id": "2"
+    }
+}

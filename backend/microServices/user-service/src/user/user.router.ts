@@ -1,22 +1,24 @@
 import { Router } from 'express';
-import { validateRequest, validateRequestByPermission } from '../../shared/utils/joi/joi.functions';
-import { wrapController } from '../../shared/utils/helpers/wrapper';
-import UserController from './user.controller';
+import { validateRequest, validateRequestByPermission } from 'shared-atom/utils/joi/joi.functions';
+import { wrapController } from 'shared-atom/utils/helpers/wrapper';
+import { Permission } from 'common-atom/enums/Permission';
+import { verifyToken } from 'shared-atom/utils/jwt/jwt';
+import { validateUserAndPermission } from 'shared-atom/utils/validators/validator';
 import {
     canGetLastWatched,
     canPatchChapter,
     canPatchMedia,
     canCreateUser,
-    canUpdateUser,
     canGetUsers,
-    canPatchRelevantArea,
     canGetAmountOfUsers,
+    canGetUserById,
+    canUpdateUserPublic,
 } from './user.validator';
-import { Permission } from '../../common/enums/Permission';
-import { verifyToken } from '../../shared/utils/jwt/jwt';
-import { validateUserAndPermission } from '../../shared/utils/validators/validator';
+import UserController from './user.controller';
 
 const UserRouter: Router = Router();
+
+UserRouter.get('/getUserById', validateRequest(canGetUserById), wrapController(UserController.getUserById));
 
 UserRouter.get(
     '/getUsers',
@@ -42,22 +44,14 @@ UserRouter.get(
     wrapController(UserController.getAmountOfUsers)
 );
 
-UserRouter.post('/createUser', validateRequest(canCreateUser), wrapController(UserController.createUser));
+UserRouter.post('/createUser', verifyToken, validateRequest(canCreateUser), wrapController(UserController.createUser));
 
 UserRouter.put(
     '/updateUser/:userId',
     verifyToken,
     validateUserAndPermission(),
-    validateRequestByPermission(canUpdateUser),
+    validateRequestByPermission(canUpdateUserPublic),
     wrapController(UserController.updateUser)
-);
-
-UserRouter.patch(
-    '/patchRelevantArea',
-    verifyToken,
-    validateUserAndPermission(),
-    validateRequest(canPatchRelevantArea),
-    wrapController(UserController.patchRelevantArea)
 );
 
 UserRouter.patch(

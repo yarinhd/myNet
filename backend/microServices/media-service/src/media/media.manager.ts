@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ContentType } from '../../common/enums/ContentType';
-import { IContentCreator } from '../../common/interfaces/content.interface';
-import { IMedia } from '../../common/interfaces/media.interface';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
-import { PatcherService } from '../../shared/utils/patcher/patcherService';
-import { ItemRPCService } from '../../shared/utils/rpc/services/item.RPCservice';
+import { ContentType } from 'common-atom/enums/ContentType';
+import { IContentCreator } from 'common-atom/interfaces/content.interface';
+import { IMedia } from 'common-atom/interfaces/media.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
+import { ItemRPCService } from 'shared-atom/utils/rpc/services/item.RPCservice';
+import { handleItemBlobCreation } from 'shared-atom/utils/schema/helpers/itemHelpers';
 import { MediaRepository } from './media.repository';
 
 export class MediaManager {
@@ -14,7 +14,7 @@ export class MediaManager {
         if (!media) {
             throw new IdNotFoundError('mediaId');
         }
-        return PatcherService.mediaPatcher(media as IMedia) as Promise<IMedia>;
+        return media;
     }
 
     // public routes
@@ -22,13 +22,14 @@ export class MediaManager {
         const { content, item, contentId } = media;
         const createdMedia = await MediaRepository.createMedia(content, contentId);
         if (item) {
+            await handleItemBlobCreation(item);
             await ItemRPCService.createItem({
                 ...item,
                 contentId: createdMedia._id!,
                 contentType: media.content.video ? ContentType.VIDEO : ContentType.PODCAST,
             });
         }
-        return PatcherService.mediaPatcher(createdMedia as IMedia) as Promise<IMedia>;
+        return createdMedia;
     }
 
     static async updateMedia(mediaId: string, media: Partial<IMedia>): Promise<IMedia> {
@@ -36,6 +37,6 @@ export class MediaManager {
         if (!updatedMedia) {
             throw new IdNotFoundError('mediaId');
         }
-        return PatcherService.mediaPatcher(updatedMedia as IMedia) as Promise<IMedia>;
+        return updatedMedia;
     }
 }

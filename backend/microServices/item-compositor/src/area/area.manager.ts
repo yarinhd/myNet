@@ -1,7 +1,6 @@
 import * as turf from '@turf/turf';
-import { IArea } from '../../common/interfaces/area.interface';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
-import { NoRelevantAreaError } from './area.errors';
+import { IArea } from 'common-atom/interfaces/area.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
 import { AreaRepository } from './area.repository';
 
 export class AreaManager {
@@ -20,9 +19,6 @@ export class AreaManager {
             const polygon = turf.polygon([area.polygon]);
             return turf.booleanPointInPolygon(point, polygon);
         });
-        if (!relevantArea) {
-            throw new NoRelevantAreaError();
-        }
         return relevantArea;
     }
 

@@ -1,10 +1,10 @@
-import { IComment, ICommentUserless } from '../../common/interfaces/comment.interface';
+import { IComment, ICommentUserless } from 'common-atom/interfaces/comment.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
+import { getContext } from 'shared-atom/utils/helpers/context';
+import { Global } from 'common-atom/enums/helpers/Global';
 import { CommentRepository } from './comment.repository';
 import { ArticleRepository } from '../article/article.repository';
 import { WrongUserError } from './comment.errors';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
-import { getContext } from '../../shared/utils/helpers/context';
-import { Global } from '../../common/enums/helpers/Global';
 
 export class CommentManager {
     static async createComment(articleId: string, comment: ICommentUserless): Promise<IComment> {

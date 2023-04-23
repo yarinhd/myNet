@@ -1,6 +1,6 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { joiMongoId } from '../../shared/utils/joi/joi.types';
+import { joiMongoId } from 'shared-atom/utils/joi/joi.types';
 
 const Joi = JoiBase.extend(<any>joiDate);
 
@@ -8,7 +8,7 @@ export const canGetMyWiki = Joi.object({
     query: Joi.object({
         search: Joi.string(),
         skip: Joi.number().integer().min(0).required(),
-        limit: Joi.number().integer().min(1).required(),
+        limit: Joi.number().integer().min(1).max(25).required(),
     }).required(),
     body: {},
     params: {},

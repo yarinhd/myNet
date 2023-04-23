@@ -1,0 +1,45 @@
+{
+    "AMAN_WIKI": {
+        "CREATE_NEW_DEFINITION": "צור מושג חדש",
+        "DELETE_ITEM": "מחיקת מושג",
+        "DELETE_CONFIRMATION": "האם אתה בטוח שאתה רוצה למחוק?",
+        "YES": "כן",
+        "DEFINITION": "מושג",
+        "EXPLANATION_AND_DETAIL": "הסבר ופירוט",
+        "SEARCH": "חפש מושג או הסבר....",
+        "NEW_WIKI": "מושג חדש",
+        "EDIT_WIKI": "ערוך מושג",
+        "EDIT": "ערוך",
+        "WIKI_NAME": "שם מושג",
+        "ENTER_WIKI_NAME": "הכנס שם מושג",
+        "ENTER_EXPLANATION": "הכנס פירוט",
+        "CREATE": "ליצור",
+        "SAVE": "שמור"
+    },
+    "WEEK": "שבוע",
+    "WEEK_DAYS": ["ראשון", "שני", "שלישי", "רביעי", "חמישי"],
+    "DASHBOARD_SECTIONS": {
+        "UPLOAD": "מה אתה רוצה להעלות היום?",
+        "STATISTICS": "סטטיסטיקות",
+        "WORK_PLAN": "תוכנית עבודה"
+    },
+    "UPLOAD_CONTENTS": {
+        "LESSON": "שיעור",
+        "INFOGRAPHIC": "אינפוגרפיקה",
+        "PAKAL": "פק\"ל דיגיטלי",
+        "GAME": "משחק",
+        "PODCAST": "פודקאסט",
+        "VIDEO": "סרטון",
+        "LOMDA": "לומדה",
+        "CONCEPT": "מושג"
+    },
+    "NAVIGATION_ITEMS": {
+        "UPLOAD": "העלאת תוצר",
+        "MY_WIKI": "MYWIKI",
+        "ALL_CONTENTS": "כל התכנים",
+        "STATISTICS": "סטטיסטיקות",
+        "USERS_DATA": "נתוני משתמשים",
+        "WORK_PLAN": "תוכנית עבודה",
+        "PERMISSIONS": "הרשאות"
+    }
+}

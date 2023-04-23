@@ -1,5 +1,5 @@
-import { ILesson } from '../../common/interfaces/lesson.interface';
-import { LessonModel } from '../../shared/models/lesson.model';
+import { ILesson } from 'common-atom/interfaces/lesson.interface';
+import { LessonModel } from 'shared-atom/models/lesson.model';
 
 export class LessonRepository {
     // RPC & private routes

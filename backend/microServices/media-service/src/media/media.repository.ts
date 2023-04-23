@@ -1,5 +1,5 @@
-import { IMedia } from '../../common/interfaces/media.interface';
-import { MediaModel } from '../../shared/models/media.model';
+import { IMedia } from 'common-atom/interfaces/media.interface';
+import { MediaModel } from 'shared-atom/models/media.model';
 
 export class MediaRepository {
     // RPC & private routes

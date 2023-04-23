@@ -1,15 +1,23 @@
 import * as mongoose from 'mongoose';
-import { IItem, IItemGroup, IItemQuery, IMissionItem, missionItemKeys } from '../../common/interfaces/item.interface';
-import { ContentType } from '../../common/enums/ContentType';
-import { IPaginator, paginationKeys } from '../../common/interfaces/helpers/paginator.interface';
-import { Global } from '../../common/enums/helpers/Global';
+import { IItem, IItemQuery, IMissionItem, missionItemKeys } from 'common-atom/interfaces/item.interface';
+import { ContentType } from 'common-atom/enums/ContentType';
+import { IPaginator } from 'common-atom/interfaces/helpers/paginator.interface';
+import { Global } from 'common-atom/enums/helpers/Global';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
+import { getContext, isDirector } from 'shared-atom/utils/helpers/context';
 import { ItemRepository } from './item.repository';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
-import { getContext, isDirector } from '../../shared/utils/helpers/context';
 import { ForbiddenPropertiesError } from './item.errors';
-import { PatcherService } from '../../shared/utils/patcher/patcherService';
 
 export class ItemManager {
+    // helpers
+    private static addUpdateDetails(item: IItem | Partial<IItem>): IItem | Partial<IItem> {
+        let finalItem = item;
+        if (!(Object.keys(item).length === 1 && !!item.priority)) {
+            finalItem = { ...item, updatedAt: new Date(), editedBy: getContext(Global.USER)._id };
+        }
+        return finalItem;
+    }
+
     // RPC & private routes
     static async getItemById(itemId: string): Promise<IItem> {
         const item = await ItemRepository.getItemById(itemId);
@@ -28,31 +36,24 @@ export class ItemManager {
     }
 
     static async createMissionItem(title: string, contentType: ContentType, priority?: number): Promise<IItem> {
-        return ItemRepository.createItem({
+        const finalDataToCreate = ItemManager.addUpdateDetails({
             title,
             contentType,
             ...(priority && { priority }),
-            editedBy: getContext(Global.USER)._id,
             contentId: mongoose.Types.ObjectId().toString(),
             isByMission: true,
         });
+        return ItemRepository.createItem(finalDataToCreate as IItem);
     }
 
     static async createItem(item: IItem): Promise<IItem> {
-        const createdItems = await ItemRepository.createItem({ ...item, editedBy: getContext(Global.USER)._id });
-        return PatcherService.itemPatcher(createdItems as IItem) as Promise<IItem>;
+        const finalDataToCreate = ItemManager.addUpdateDetails(item);
+        return ItemRepository.createItem(finalDataToCreate as IItem);
     }
 
     // public routes
-    static async getItems(query: IItemQuery): Promise<IItem[] | IItemGroup[] | IPaginator<IItem>> {
-        const items = await ItemRepository.getItems({ ...query, ...(!isDirector() && { isActive: true }) });
-
-        if (!query.category && !query.search) {
-            return PatcherService.itemGroupPatcher(items as IItemGroup[]) as Promise<IItemGroup[]>;
-        }
-        return paginationKeys.some((key: keyof IItemQuery) => query[key] !== undefined)
-            ? (PatcherService.paginatedItemsPatcher(items as IPaginator<IItem>) as Promise<IPaginator<IItem>>)
-            : (PatcherService.itemPatcher(items as IItem[]) as Promise<IItem[]>);
+    static async getItems(query: IItemQuery): Promise<IItem[] | IPaginator<IItem>> {
+        return ItemRepository.getItems({ ...query, ...(!isDirector() && { isActive: true }) });
     }
 
     static async updateItem(itemId: string, item: Partial<IItem | IMissionItem>): Promise<IItem> {
@@ -62,11 +63,12 @@ export class ItemManager {
                 throw new ForbiddenPropertiesError();
             }
         }
-        const updatedItem = await ItemRepository.updateItem(itemId, { ...item, editedBy: getContext(Global.USER)._id });
+        const finalDataToUpdate = ItemManager.addUpdateDetails(item);
+        const updatedItem = await ItemRepository.updateItem(itemId, finalDataToUpdate);
         if (!updatedItem) {
             throw new IdNotFoundError('itemId');
         }
-        return PatcherService.itemPatcher(updatedItem as IItem) as Promise<IItem>;
+        return updatedItem;
     }
 
     static async increaseViewsAndPriority(itemId: string): Promise<IItem> {

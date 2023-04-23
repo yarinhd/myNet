@@ -1,5 +1,5 @@
-import { IPakal } from '../../common/interfaces/pakal.interface';
-import { PakalModel } from '../../shared/models/pakal.model';
+import { IPakal } from 'common-atom/interfaces/pakal.interface';
+import { PakalModel } from 'shared-atom/models/pakal.model';
 
 export class PakalRepository {
     // RPC & private routes

@@ -1,8 +1,8 @@
 import * as JoiBase from 'joi';
 import joiDate from '@joi/date';
-import { joiEnum, joiMongoId } from '../../shared/utils/joi/joi.types';
-import { ItemRPCService } from '../../shared/utils/rpc/services/item.RPCservice';
-import { AreaNames } from '../../common/enums/AreaNames';
+import { joiEnum, joiMongoId } from 'shared-atom/utils/joi/joi.types';
+import { ItemRPCService } from 'shared-atom/utils/rpc/services/item.RPCservice';
+import { AreaNames } from 'common-atom/enums/AreaNames';
 
 const Joi = JoiBase.extend(<any>joiDate);
 

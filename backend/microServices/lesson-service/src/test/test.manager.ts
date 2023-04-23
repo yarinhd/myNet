@@ -1,6 +1,6 @@
-import { ITest } from '../../common/interfaces/test.interface';
+import { ITest } from 'common-atom/interfaces/test.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
 import { TestRepository } from './test.repository';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
 
 export class TestManager {
     static async getTestById(testId: string): Promise<ITest> {

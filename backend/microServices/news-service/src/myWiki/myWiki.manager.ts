@@ -1,6 +1,6 @@
-import { IPaginator } from '../../common/interfaces/helpers/paginator.interface';
-import { IMyWiki, IMyWikiQuery } from '../../common/interfaces/myWiki.interface';
-import { IdNotFoundError } from '../../shared/utils/errors/validationError';
+import { IPaginator } from 'common-atom/interfaces/helpers/paginator.interface';
+import { IMyWiki, IMyWikiQuery } from 'common-atom/interfaces/myWiki.interface';
+import { IdNotFoundError } from 'shared-atom/utils/errors/validationError';
 import { MyWikiRepository } from './myWiki.repository';
 
 export class MyWikiManager {
